@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<head>
+<h4> Provide credentials </h4>
+</head>
+
+<body>
+<p>
+<a href="{% url 'social_network:user_login' %}">login</a>
+</p>
+<form method="POST" action="{% url 'social_network:signup_auth' %}" >
+{% csrf_token %}
+<label for="username">Username</label>
+<input type="text" name="username" id="username" ></br>
+<label for="password">Password</label>
+<input type="password" name="password" id="password" ></br>
+<label for="firstname">First name</label>
+<input type="text" name="firstname" id="firstname" ></br>
+<label for="lastname">Last name </label>
+<input type="text" name="lastname" id="lastname" > </br>
+<label for="email">Email</label>
+<input type="text" name="email" id="email"></br>
+<input type="submit" value="signup">
+</form>
+</body>
+</html>

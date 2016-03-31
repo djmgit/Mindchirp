@@ -1,0 +1,333 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Mindchirp:Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!--<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" /> 
+  -->
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    .profpic {
+
+      margin-right : 25px;
+      padding : 10px;
+    }
+    #roller-info{
+
+      font-size: 15px
+      margin-bottom:30px;
+      padding: 0px
+      
+
+    }
+    #tip-info{
+
+      font-size: 15px
+      margin-bottom:30px;
+      padding : 20px 
+      
+
+    }
+    #super-info{
+
+      font-size: 15px
+      margin-bottom:30px;
+      padding: 0px
+
+
+    }
+
+    
+    
+
+    #hello {
+
+      font-family: arial black;
+      font-style:italic;
+
+    }
+    #about{
+
+      font-size:24px;
+    }
+    #col-header{
+
+      font-family:verdana;
+      font-size:18px;
+      font-style:bold;
+      text-align: center;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+
+    #col-body{
+
+      font-family: verdana;
+      font-size: 18px;
+      text-align: center;
+    }
+    #other{
+
+      font-family: verdana;
+      font-size: 18px;
+      margin-bottom: 10px;
+      margin-left:20px;
+      padding-right:50px;
+    }
+    #otherlast{
+
+      font-family: verdana;
+      font-size: 18px;
+      margin-bottom: 100px;
+      margin-left: 20px;
+      padding-right: 50px
+    }
+    .right{
+
+      padding-right: 20px;
+    }
+
+    #label
+    {
+    	text-align: left;
+    	font-size : 18px;
+    	font-family : verdana;
+    }
+    #textarea
+    {
+    	padding-left : 20px;
+    	padding-right : 20px;
+    }
+    #panel-body
+    {
+    	/*padding-left : 20px;
+    	padding-right : 20px;*/	
+    }
+    #user_info
+    {
+    	font-size:20px;
+    	font-family:verdana;
+    	
+    }
+    #body
+    {
+    	margin-bottom: 400px;
+    }
+    #q_authordetails
+    {
+    	 font-size: 15px;
+    	 font-family: verdana;
+    	 font-style: italic;
+    }
+    
+    
+   #scrollablebody {
+    
+    overflow-y: scroll; 
+  }
+
+    
+
+
+
+    
+  </style>
+
+  
+ 
+
+
+</head>
+<body id="body">
+
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+      			<a class="navbar-brand" href="#">MindChirp</a>
+    			</div>
+    		<ul class="nav navbar-nav">
+      			<li class="active"><a href="#">Home</a></li>
+      			
+    		</ul>
+    		<ul class="nav navbar-nav navbar-right">
+    			<li><a href="{% url 'social_network:user_wall' %}"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a></li>
+      			<li><a href="{% url 'social_network:user_logout' %}"> Log out</a></li>
+      
+    		</ul>
+  		</div>
+	</nav>	
+	<div class="container">
+		<div id="user_info">
+			Hello {{ user.username }}!!
+		</div>
+
+	<div class="row">
+        <div class="col-sm-4">
+            <div class="page-header" id='col-header'>
+              Present users
+            </div>
+            <div id="col-body" id="scrollablebody">
+            	
+            		<div class='panel panel-default'>
+            			
+            			<div class='panel-body'> 
+
+            				<div class='list-group'>
+            					{% for user in users %}
+            						<li class='list-group-item'>
+            							<a href="{% url 'social_network:show_user' user.id %}" > {{ user.username }} </a>
+            						</li>
+            					{% endfor %}	
+            				</div>
+		              		
+				  		</div>			
+			  		</div>		
+		  				
+		  				
+	  					
+            
+          	</div>
+    	</div>	
+
+    	<div class="col-sm-4">
+            <!--<div class="page-header" id='col-header'>
+              
+            </div>-->
+            
+            	
+            		<!---<div class='panel panel-default'>
+            			
+            			<div class='panel-body'> -->
+
+            				<form method="post" action="{% url 'social_network:add_status' %}" role='form' class='form-horizontal' enctype="multipart/form-data">
+            					<div class='form-group'>
+								 	{% csrf_token %}
+								 	<input type='file' name='image' accept='image/*' class="btn btn-primary btn-sm">
+								 	<label for="status">Speak your mind</label>
+								 	<textarea id="status"  rows="5" name='status' class='form-control'></textarea>
+								 	<input type="submit" value="post" class='btn btn-primary btn-sm btn-block'>
+								</div> 	
+							</form>
+							</br>
+
+							{% if posts %}
+								{% for post in posts %}
+									<div class="row">
+            							<div class='col-sm-4'>
+            								<div class="col-body">
+            									<div id="q_authordetails">
+            										Auther:{{ post.username }}
+            										</br>
+            										{{ post.pub_date }}
+            									</div>	
+            								</div>
+            							</div>
+            							<div class='col-sm-4'>
+            								<div class="col-body">
+            									{{ post.post_text }}
+            									<img src='{{ post.image.url }}' alt=''>
+            								</div>
+            							</div>
+            						</div>
+									{% if post.comment_set.all %}
+										{% for comment in post.comment_set.all %}
+											<div class="row">
+            									<div class='col-sm-4'>
+            										<div class="col-body">
+            											<div id="q_authordetails">
+            												Auther:{{ comment.username }}
+            											
+            											</div>	
+            										</div>
+            									</div>
+            									<div class='col-sm-4'>
+            										<div class="col-body">
+            											{{ comment.comment_text }}
+            										</div>
+            									</div>
+            								</div>
+											
+										{% endfor %}	
+
+									{% else %}
+										<p> No comments available for this posts </p>	
+									{% endif %}
+									<form method="POST" action="{% url 'social_network:add_comment' post.id %}" role='form' class='form-horizontal'>
+										{% csrf_token %}
+										<label for="comment">Add comment</label></br>
+										<input type='text' id="comment" name="comment" class='form-control'>
+										<input type='submit' value='comment' class='btn btn-primary btn-sm btn-block'>
+									</form>		
+								{% endfor %}		
+		
+							{% else %}
+								<h4> No post available </h4>
+							{% endif %}		
+		              		
+				  		<!--</div>			
+			  		</div>	-->	
+		  				
+		  				
+	  					
+            
+          	
+    	</div>	
+
+    </div>	
+
+
+	 
+	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+</body>
+</html>

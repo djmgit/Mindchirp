@@ -1,0 +1,21 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<head>
+<h4> Provide credentials </h4>
+</head>
+
+<body>
+<p>
+<a href="{% url 'social_network:user_signup' %}">sign up</a>
+</p>
+<form method="POST" action="{% url 'social_network:user_auth' %}" >
+{% csrf_token %}
+<label for="username">User name</label>
+<input type="text" name="username" id="username" >
+<label for="password">Password</label>
+<input type="password" name="password" id="password" >
+<input type="submit" value="login">
+</form>
+</body>
+</html>
